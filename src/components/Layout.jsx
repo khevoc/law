@@ -55,9 +55,16 @@ const Layout = ({ children, lang, setLang }) => {
       </button>
 
       <footer className="site-footer">
-        <div>© {new Date().getFullYear()} Arca Law PA</div>
-        <div>
-          <a>Phone: +1 (305) 523-9040</a> 
+        <div className="footer-left">
+          <img
+            src="/logo.png"
+            alt="Arca Law Logo"
+            className="footer-logo"
+          />
+          <span>© {new Date().getFullYear()} Arca Law PA</span>
+        </div>
+        <div className="footer-right">
+          <a>Phone: +1 (305) 523-9040</a>
           <br />
           <a>Email: victor@arcalawfirm.com</a>
           <br />

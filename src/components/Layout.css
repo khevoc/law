@@ -126,7 +126,8 @@
 
 .site-footer {
   width: 100%;
-  padding: 50px 8%;
+  padding-left: 7%;
+  padding-right: 7%;
   background: #0a0a0d;
   border-top: 1px solid rgba(200, 180, 140, 0.15);
   color: #dcd9d3;
@@ -141,6 +142,40 @@
   opacity: 0.8;
 }
 
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.footer-logo {
+  width: 150px;          /* Ajusta si quieres más grande */
+  height: auto;
+  opacity: 0.9;
+  filter: brightness(1.2);
+}
+
+.footer-left span {
+  font-size: 15px;
+  opacity: 0.85;
+}
+
+/* RIGHT PART: CONTACT INFO */
+.footer-right {
+  font-size: 14.5px;
+  opacity: 0.85;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.footer-right a {
+  color: #dcd9d3;
+  text-decoration: none;
+}
+.footer-right a:hover {
+  text-decoration: underline;
+}
+
 @media (max-width: 800px) {
   .main-nav {
     display: none; /* Para versión móvil luego hacemos menú hamburguesa */
@@ -149,6 +184,14 @@
   .site-footer {
     flex-direction: column;
     gap: 10px;
+    text-align: center;
+  }
+
+  .footer-left {
+    justify-content: center;
+  }
+
+  .footer-right {
     text-align: center;
   }
 }
