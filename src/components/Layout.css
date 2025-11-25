@@ -1,0 +1,154 @@
+/* -----------------------------------------------------
+   HEADER / NAVBAR – LUXURY STYLE
+------------------------------------------------------*/
+
+.site-header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(10, 10, 14, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(200, 180, 140, 0.1);
+  padding: 18px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.logo-area .logo-wordmark {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: #e8e2d8;
+  letter-spacing: 0.5px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 26px;
+}
+
+.main-nav a {
+  color: #e8e2d8;
+  text-decoration: none;
+  font-size: 15px;
+  opacity: 0.78;
+  transition: 0.3s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  opacity: 1;
+  color: #cfa46a;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.lang-switcher {
+  display: flex;
+  gap: 8px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(200, 180, 140, 0.2);
+  color: #cfcfcf;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s ease;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+  border-color: #cfa46a;
+  color: #f9f9f3;
+}
+
+.primary-cta {
+  background: #cfa46a;
+  color: #050507;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  font-size: 14px;
+}
+
+.primary-cta:hover {
+  background: #e4c28d;
+}
+
+
+/* -----------------------------------------------------
+   FLOATING CTA (BOTTOM RIGHT)
+------------------------------------------------------*/
+
+.floating-cta {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(200, 180, 140, 0.25);
+  border: 1px solid rgba(200, 180, 140, 0.35);
+  backdrop-filter: blur(6px);
+  color: #fdfdfd;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s ease;
+  z-index: 40;
+}
+
+.floating-cta:hover {
+  background: rgba(200, 180, 140, 0.4);
+  border-color: #cfa46a;
+}
+
+.floating-cta-icon {
+  font-size: 22px;
+}
+
+
+/* -----------------------------------------------------
+   FOOTER – PREMIUM LAW FIRM
+------------------------------------------------------*/
+
+.site-footer {
+  width: 100%;
+  padding: 50px 8%;
+  background: #0a0a0d;
+  border-top: 1px solid rgba(200, 180, 140, 0.15);
+  color: #dcd9d3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.site-footer div {
+  opacity: 0.8;
+}
+
+@media (max-width: 800px) {
+  .main-nav {
+    display: none; /* Para versión móvil luego hacemos menú hamburguesa */
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
