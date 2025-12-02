@@ -7,10 +7,10 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(10, 10, 14, 0.7);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(200, 180, 140, 0.1);
-  padding: 18px 8%;
+  background: radial-gradient(circle at 0% 0%, rgba(20, 25, 60, 0.9), rgba(5, 5, 12, 0.96));
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200, 180, 140, 0.14);
+  padding: 16px 8%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -21,27 +21,48 @@
   font-family: "Playfair Display", serif;
   font-size: 26px;
   font-weight: 500;
-  color: #e8e2d8;
-  letter-spacing: 0.5px;
+  color: #f3efe7;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
+/* MAIN NAV */
 .main-nav {
   display: flex;
   gap: 26px;
 }
 
 .main-nav a {
+  position: relative;
   color: #e8e2d8;
   text-decoration: none;
-  font-size: 15px;
-  opacity: 0.78;
-  transition: 0.3s ease;
+  font-size: 14px;
+  opacity: 0.82;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: 0.25s ease;
+}
+
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 1px;
+  background: #cfa46a;
+  transition: width 0.25s ease;
 }
 
 .main-nav a:hover,
 .main-nav a.active {
   opacity: 1;
-  color: #cfa46a;
+  color: #ffffff;
+}
+
+.main-nav a:hover::after,
+.main-nav a.active::after {
+  width: 100%;
 }
 
 .header-actions {
@@ -50,98 +71,174 @@
   gap: 20px;
 }
 
-.lang-switcher {
-  display: flex;
-  gap: 8px;
-}
-
-.lang-btn {
-  background: transparent;
-  border: 1px solid rgba(200, 180, 140, 0.2);
-  color: #cfcfcf;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: 0.3s ease;
-}
-
-.lang-btn.active,
-.lang-btn:hover {
-  border-color: #cfa46a;
-  color: #f9f9f3;
-}
-
 .primary-cta {
   background: #cfa46a;
   color: #050507;
-  padding: 10px 20px;
-  border-radius: 25px;
+  padding: 9px 22px;
+  border-radius: 999px;
   text-decoration: none;
   transition: 0.3s ease;
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .primary-cta:hover {
   background: #e4c28d;
 }
 
+/* -----------------------------------------------------
+   MOBILE MENU BUTTON
+------------------------------------------------------*/
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-menu-btn span {
+  width: 26px;
+  height: 3px;
+  background: #cfa46a;
+  border-radius: 5px;
+}
 
 /* -----------------------------------------------------
-   FLOATING CTA (BOTTOM RIGHT)
+   MOBILE OVERLAY MENU
+------------------------------------------------------*/
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 6, 15, 0.96);
+  backdrop-filter: blur(16px);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 25px;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.close-mobile-menu {
+  align-self: flex-end;
+  background: none;
+  font-size: 28px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  gap: 22px;
+}
+
+.mobile-nav a {
+  color: #f4f4f7;
+  font-size: 20px;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mobile-nav a:hover {
+  color: #cfa46a;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* -----------------------------------------------------
+   RESPONSIVE (HEADER / NAV)
+------------------------------------------------------*/
+
+@media (max-width: 900px) {
+  .main-nav {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .header-actions {
+    display: none;
+  }
+}
+
+
+
+/* -----------------------------------------------------
+   FLOATING CTAs (BOTTOM RIGHT)
 ------------------------------------------------------*/
 
 .floating-cta {
   position: fixed;
-  bottom: 30px;
+  bottom: 90px;
   right: 30px;
   background: rgba(200, 180, 140, 0.25);
   border: 1px solid rgba(200, 180, 140, 0.35);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(10px);
   color: #fdfdfd;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 999px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s ease;
+  transition: 0.25s ease;
   z-index: 40;
 }
 
 .floating-cta:hover {
   background: rgba(200, 180, 140, 0.4);
   border-color: #cfa46a;
+  transform: translateY(-2px);
 }
 
-.floating-cta-icon {
-  font-size: 22px;
+.floating-cta-icon svg {
+  display: block;
 }
+
+.floating-cta.to-top {
+  bottom: 30px;
+}
+
 
 
 /* -----------------------------------------------------
-   FOOTER – PREMIUM LAW FIRM
+   FOOTER – MODERNO / TRES BLOQUES
 ------------------------------------------------------*/
 
 .site-footer {
   width: 100%;
-  padding-left: 7%;
-  padding-right: 7%;
-  background: #0a0a0d;
-  border-top: 1px solid rgba(200, 180, 140, 0.15);
-  color: #dcd9d3;
+  background: radial-gradient(circle at 0% 0%, #141622, #050509);
+  border-top: 1px solid rgba(200, 180, 140, 0.2);
+  color: #e3e0d9;
+  padding: 32px 8% 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.footer-main {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  letter-spacing: 0.3px;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.site-footer div {
-  opacity: 0.8;
-}
-
+/* LEFT: logo + marca */
 .footer-left {
   display: flex;
   align-items: center;
@@ -149,41 +246,95 @@
 }
 
 .footer-logo {
-  width: 150px;          /* Ajusta si quieres más grande */
+  width: 110px;
   height: auto;
-  opacity: 0.9;
-  filter: brightness(1.2);
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  filter: brightness(1.1);
+  animation: logoFadeIn 0.8s ease forwards;
 }
 
-.footer-left span {
-  font-size: 15px;
-  opacity: 0.85;
+@keyframes logoFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-/* RIGHT PART: CONTACT INFO */
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-brand-name {
+  font-family: "Playfair Display", serif;
+  font-size: 18px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.footer-brand-copy {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* CENTER: nav secundario */
+.footer-center {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-center a {
+  color: #e3e0d9;
+  text-decoration: none;
+  opacity: 0.75;
+  transition: 0.2s ease;
+}
+
+.footer-center a:hover {
+  opacity: 1;
+  color: #cfa46a;
+}
+
+/* RIGHT: contacto */
 .footer-right {
-  font-size: 14.5px;
+  font-size: 14px;
   opacity: 0.85;
   line-height: 1.6;
   text-align: right;
 }
 
-.footer-right a {
-  color: #dcd9d3;
-  text-decoration: none;
+.footer-right p {
+  margin: 0;
 }
-.footer-right a:hover {
-  text-decoration: underline;
+
+/* Bottom line */
+.footer-bottom {
+  border-top: 1px solid rgba(200, 180, 140, 0.18);
+  padding-top: 10px;
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.75;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
 }
+
+
+
+/* -----------------------------------------------------
+   RESPONSIVE FOOTER
+------------------------------------------------------*/
 
 @media (max-width: 800px) {
-  .main-nav {
-    display: none; /* Para versión móvil luego hacemos menú hamburguesa */
-  }
-
-  .site-footer {
+  .footer-main {
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
     text-align: center;
   }
 
@@ -192,6 +343,12 @@
   }
 
   .footer-right {
+    text-align: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 }

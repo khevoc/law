@@ -1,214 +1,305 @@
 /* -----------------------------------------------------
-   BASE & GENERAL STYLE
+   GLOBAL FONTS & VARIABLES
 ------------------------------------------------------*/
 
-.home-page {
-  background: #050507;
-  color: #f4f4f7;
-  width: 100%;
-  overflow-x: hidden;
-  font-family: "Inter", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap");
+
+:root {
+  /* Palette */
+  --royal-blue: #071738;
+  --royal-blue-2: #0c1e4b;
+  --velvet-highlight: #1e2f66;
+
+  --gold: #cfa46a;
+  --gold-soft: rgba(207, 164, 106, 0.4);
+
+  --white-clean: #fff;
+  --white-soft: rgba(255, 255, 255, 0.85);
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-blur: blur(18px);
+
+  /* Typography */
+  --header-font: "Cormorant Garamond", serif;
+  --body-font: "Plus Jakarta Sans", sans-serif;
 }
 
+.home-page {
+  color: var(--white-clean);
+  width: 100%;
+  overflow-x: hidden;
+
+  /* Fondo terciopelo azul */
+  background-image: url("/background.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+
+  font-family: var(--body-font);
+}
+
+
+
+/* -----------------------------------------------------
+   SPACING / SHARED RULES
+------------------------------------------------------*/
+
 .section {
-  padding: 100px 10%;
+  padding: 60px 10%;
 }
 
 .section-header {
-  max-width: 700px;
-  margin-bottom: 60px;
+  max-width: 800px;
+  margin-bottom: 70px;
 }
 
 .section-header h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 42px;
+  font-family: var(--header-font);
+  font-size: 48px;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: #e8e2d8;
+  letter-spacing: 0.6px;
+  margin-bottom: 15px;
 }
 
 .section-header p {
   font-size: 18px;
-  line-height: 1.6;
-  opacity: 0.8;
+  line-height: 1.7;
+  opacity: 0.85;
 }
 
 
+
 /* -----------------------------------------------------
-   HERO SECTION
+   HERO — ANIMATED VELVET GRADIENT
 ------------------------------------------------------*/
 
 .hero {
   position: relative;
-  height: 85vh;
+  height: 92vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 0 10%;
-  background: radial-gradient(circle at 30% 50%, #15151a, #050507);
   overflow: hidden;
 }
 
+/* Layer 1: Soft dark overlay */
 .hero-overlay {
-  content: "";
   position: absolute;
   inset: 0;
-  background: url("/public/law-office.jpg"); /* Cambia por tu imagen */
-  opacity: 0.12;
-  background-size: cover;
-  background-position: center;
-  mix-blend-mode: screen;
-  filter: blur(4px);
+  background: rgba(5, 10, 30, 0.55);
 }
 
+/* Layer 2: velvet wave animation */
+.hero-velvet-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(21, 43, 96, 0.35),
+    rgba(15, 28, 70, 0.55),
+    rgba(11, 22, 50, 0.35)
+  );
+  mix-blend-mode: soft-light;
+  animation: velvetWave 12s ease-in-out infinite alternate;
+  filter: blur(45px);
+}
+
+@keyframes velvetWave {
+  0% {
+    transform: scale(1) translateX(0px);
+  }
+  50% {
+    transform: scale(1.15) translateX(30px);
+  }
+  100% {
+    transform: scale(1) translateX(-20px);
+  }
+}
+
+/* HERO CONTENT */
 .hero-content {
   position: relative;
   max-width: 900px;
   text-align: center;
-  z-index: 2;
+  z-index: 5;
+  padding-top: 40px;
 }
 
+/* PERSONAS OPTIONS */
 .hero-personas {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 35px;
 }
 
 .persona-tab {
-  background: transparent;
-  border: 1px solid rgba(200, 180, 140, 0.2);
   padding: 10px 24px;
-  border-radius: 25px;
-  color: #cfcfcf;
-  cursor: pointer;
+  border-radius: 30px;
   font-size: 14px;
+  color: var(--white-soft);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  cursor: pointer;
   transition: 0.3s ease;
 }
 
 .persona-tab.active {
-  background: rgba(200, 180, 140, 0.2);
-  border-color: #cfa46a;
-  color: #f9f8f5;
+  background: rgba(207, 164, 106, 0.2);
+  color: var(--white-clean);
+  border-color: var(--gold);
 }
 
+/* MAIN HERO TITLE */
 .hero-content h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 52px;
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 20px;
+  font-family: var(--header-font);
+  font-size: 60px;
+  line-height: 1.1;
+  margin-bottom: 15px;
 }
 
+/* SUBTITLE */
 .hero-subtitle {
-  font-size: 20px;
-  opacity: 0.85;
-  margin-bottom: 40px;
+  font-size: 22px;
+  opacity: 0.9;
+  margin-bottom: 45px;
 }
 
+/* CTA buttons */
 .hero-ctas {
   display: flex;
   justify-content: center;
-  gap: 20px;
-}
-
-.primary-cta,
-.secondary-cta {
-  padding: 14px 28px;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: 0.3s ease;
-  font-size: 15px;
+  gap: 22px;
 }
 
 .primary-cta {
-  background: #cfa46a;
-  color: #050507;
+  padding: 14px 32px;
+  border-radius: 30px;
+  background: var(--gold);
+  color: #202020;
+  font-weight: 600;
+  transition: 0.3s ease;
+  text-decoration: none;
 }
 
 .primary-cta:hover {
-  background: #e4c28d;
+  background: #e4c48c;
 }
 
 .secondary-cta {
-  border: 1px solid #cfa46a;
-  color: #cfa46a;
+  padding: 14px 32px;
+  border-radius: 30px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-weight: 500;
+  transition: 0.3s ease;
+  text-decoration: none;
 }
 
 .secondary-cta:hover {
-  background: rgba(200, 180, 140, 0.1);
+  background: rgba(207, 164, 106, 0.12);
 }
 
+/* Trust bar */
 .trust-bar {
-  margin-top: 45px;
+  margin-top: 50px;
   display: flex;
-  gap: 30px;
   justify-content: center;
-  opacity: 0.8;
-  font-size: 14px;
+  gap: 25px;
+  opacity: 0.85;
 }
 
-.trust-bar span::after {
+.trust-bar span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-bar span::before {
   content: "•";
-  margin-left: 14px;
-  opacity: 0.6;
+  color: var(--gold);
 }
 
-.trust-bar span:last-child::after {
-  display: none;
-}
 
 
 /* -----------------------------------------------------
-   PRACTICE AREAS – CARDS
+   GLASSMORPHISM CARD (shared)
+------------------------------------------------------*/
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.4);
+  transition: 0.35s ease;
+}
+
+
+
+/* -----------------------------------------------------
+   PRACTICE AREAS — WITH LUCIDE ICONS
 ------------------------------------------------------*/
 
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(265px, 1fr));
   gap: 35px;
 }
 
-.practice-card,
-.partner-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(200, 180, 140, 0.18);
-  padding: 32px;
-  border-radius: 12px;
-  transition: 0.35s ease;
-  backdrop-filter: blur(6px);
+.practice-card {
+  padding: 38px;
+  border-radius: 18px;
+  position: relative;
+  text-align: left;
 }
 
 .practice-card:hover {
-  transform: translateY(-6px);
-  border-color: #cfa46a;
+  transform: translateY(-8px);
+  border-color: var(--gold);
 }
 
+/* Icon container */
+.practice-icon {
+  margin-bottom: 22px;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title */
 .practice-card h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 22px;
+  font-family: var(--header-font);
+  font-size: 26px;
   margin-bottom: 10px;
-  color: #e8e2d8;
 }
 
+/* Body text */
 .practice-card p {
-  opacity: 0.75;
-  line-height: 1.5;
+  opacity: 0.85;
+  line-height: 1.65;
   margin-bottom: 15px;
 }
 
+/* Ghost link */
 .ghost-link {
+  background: none;
   border: none;
-  background: transparent;
-  color: #cfa46a;
+  color: var(--gold);
   text-decoration: underline;
-  cursor: pointer;
   font-size: 14px;
+  cursor: pointer;
 }
 
 
+
 /* -----------------------------------------------------
-   SECTORS – CHIPS
+   SECTORS (chips)
 ------------------------------------------------------*/
 
 .chips-row {
@@ -218,104 +309,110 @@
 }
 
 .sector-chip {
-  background: rgba(200, 180, 140, 0.18);
-  padding: 10px 18px;
-  border-radius: 25px;
-  color: #f9f9f9;
-  font-size: 14px;
-  transition: 0.3s ease;
-  cursor: default;
+  padding: 10px 22px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: 0.25s ease;
 }
 
 .sector-chip:hover {
-  background: rgba(200, 180, 140, 0.28);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 
+
 /* -----------------------------------------------------
-   TIMELINE – PREMIUM
+   TIMELINE
 ------------------------------------------------------*/
 
 .timeline {
   margin-top: 40px;
-  position: relative;
   padding-left: 25px;
-  border-left: 1px solid rgba(200, 180, 140, 0.25);
+  border-left: 1px solid rgba(207, 164, 106, 0.3);
 }
 
 .timeline-item {
-  margin-bottom: 40px;
+  margin-bottom: 45px;
   position: relative;
 }
 
 .timeline-dot {
   position: absolute;
-  top: 4px;
-  left: -10px;
+  left: -11px;
+  top: 6px;
   width: 12px;
   height: 12px;
-  background: #cfa46a;
+  background: var(--gold);
   border-radius: 50%;
 }
 
-.timeline-content .timeline-year {
-  font-size: 14px;
-  color: #cfa46a;
+.timeline-year {
+  color: var(--gold);
   font-weight: 600;
 }
 
 .timeline-content h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 24px;
-  margin: 6px 0;
+  font-family: var(--header-font);
+  font-size: 26px;
+  margin: 8px 0;
 }
 
 .timeline-content p {
-  opacity: 0.75;
-  line-height: 1.6;
+  opacity: 0.85;
+  line-height: 1.65;
 }
 
 
+
 /* -----------------------------------------------------
-   TEAM – PARTNERS
+   PARTNERS — TEAM CARDS
 ------------------------------------------------------*/
 
 .partner-card {
+  padding: 32px;
+  border-radius: 18px;
   text-align: center;
+}
+
+.partner-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
 }
 
 .avatar-placeholder {
   width: 120px;
   height: 120px;
-  margin: 0 auto 20px;
   border-radius: 50%;
+  margin: 0 auto 20px;
   background: linear-gradient(
     135deg,
-    rgba(200, 180, 140, 0.25),
-    rgba(255, 255, 255, 0.05)
+    rgba(207, 164, 106, 0.25),
+    rgba(255, 255, 255, 0.08)
   );
 }
 
 .partner-card h3 {
-  font-family: "Playfair Display", serif;
-  font-size: 22px;
-  margin-bottom: 5px;
+  font-family: var(--header-font);
+  font-size: 24px;
+  margin-bottom: 6px;
 }
 
 .partner-role {
-  font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.78;
   margin-bottom: 10px;
 }
 
 
+
 /* -----------------------------------------------------
-   CONTACT FORM – LUXURY
+   CONTACT FORM
 ------------------------------------------------------*/
 
 .contact-section {
-  background: rgba(255, 255, 255, 0.04);
-  border-top: 1px solid rgba(200, 180, 140, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+  border-top: 1px solid var(--gold-soft);
+  backdrop-filter: blur(12px);
   padding-bottom: 120px;
 }
 
@@ -323,8 +420,8 @@
   max-width: 700px;
   margin: auto;
   display: flex;
+  gap: 22px;
   flex-direction: column;
-  gap: 20px;
 }
 
 .form-row {
@@ -340,15 +437,15 @@
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(200, 180, 140, 0.25);
-  padding: 14px 16px;
-  color: #f4f4f7;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--gold-soft);
+  color: var(--white-clean);
+  padding: 15px;
+  border-radius: 12px;
   font-size: 15px;
-  border-radius: 8px;
 }
 
-.contact-form textarea {
+textarea {
   resize: none;
 }
 
@@ -357,50 +454,53 @@
 }
 
 
+
 /* -----------------------------------------------------
-   RESPONSIVE
+   RESPONSIVE — MOBILE / IPHONE 13/14/15
 ------------------------------------------------------*/
 
 @media (max-width: 900px) {
   .hero-content h1 {
-    font-size: 38px;
+    font-size: 46px;
   }
-
-  .hero {
-    height: 90vh;
-    padding: 0 5%;
-  }
-
   .section {
-    padding: 70px 6%;
+    padding: 95px 6%;
   }
-
-  .trust-bar {
-    flex-direction: column;
-    gap: 6px;
-    text-align: center;
-  }
-
   .form-row {
     flex-direction: column;
+  }
+  .trust-bar {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
 @media (max-width: 600px) {
+  .hero {
+    height: 100vh;
+  }
+  .hero-content h1 {
+    font-size: 38px;
+  }
+  .hero-subtitle {
+    font-size: 17px;
+  }
   .persona-tab {
     padding: 8px 18px;
   }
-
-  .hero-content h1 {
-    font-size: 32px;
+  .cards-grid {
+    gap: 25px;
   }
-
-  .hero-subtitle {
-    font-size: 16px;
+  .practice-card {
+    padding: 28px;
   }
 }
+
 @media (max-width: 400px) {
   .section-header h2 {
+    font-size: 32px;
+  }
+  .hero-content h1 {
     font-size: 32px;
   }
 }
