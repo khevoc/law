@@ -42,8 +42,6 @@ section {
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #1f1c2b;
-  animation: auroraLines 6s ease-in-out infinite alternate;
   font-family: 'Montserrat', sans-serif;
   color: white;
   scroll-behavior: smooth;
