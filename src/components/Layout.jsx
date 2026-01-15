@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
       {/* HEADER */}
       <header className="site-header">
         <div className="logo-area">
-          <span className="logo-wordmark">Arca Law</span>
+          <span className="logo-wordmark">Law Firm</span>
         </div>
 
         <button
@@ -119,9 +119,9 @@ const Layout = ({ children }) => {
           <div className="footer-left">
             <img src="/logo.png" alt="Arca Law Logo" className="footer-logo" />
             <div className="footer-brand">
-              <span className="footer-brand-name">Arca Law</span>
+              <span className="footer-brand-name">Law Firm</span>
               <span className="footer-brand-copy">
-                © {new Date().getFullYear()} Arca Law PA
+                © {new Date().getFullYear()} Law Firm
               </span>
             </div>
           </div>
@@ -134,9 +134,9 @@ const Layout = ({ children }) => {
           </div>
 
           <div className="footer-right">
-            <p>Phone: +1 (305) 523-9040</p>
-            <p>Email: victor@arcalawfirm.com</p>
-            <p>350 S Miami Avenue Suite 2714, Miami, FL 33130</p>
+            <p>Phone: +1 (305) 333-9000</p>
+            <p>Email: emilio@lawfirm.com</p>
+            <p>102 S Miami Avenue Suite 520, Miami, FL 33130</p>
           </div>
         </div>
 

@@ -317,7 +317,7 @@ export default function Home({ lang }) {
                 <img
                   className="founder-photo"
                   src={founderUrl}
-                  alt="Victor Arca — Founder Attorney"
+                  alt="Emilio Smith — Founder Attorney"
                   loading="lazy"
                 />
                 <div className="founder-halo" aria-hidden="true" />
@@ -325,7 +325,7 @@ export default function Home({ lang }) {
 
               <div className="founder-body">
                 <div className="founder-kicker">Founder Attorney</div>
-                <h3 className="founder-name">Victor Arca</h3>
+                <h3 className="founder-name">Emilio Smith</h3>
                 <p className="founder-role">Corporate & Litigation</p>
 
                 <p className="founder-desc">
