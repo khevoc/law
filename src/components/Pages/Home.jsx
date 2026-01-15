@@ -7,6 +7,10 @@ import {
   Scale,
   ShieldCheck,
   Building2,
+  Sparkles,
+  Globe2,
+  Landmark,
+  Gavel,
 } from "lucide-react";
 import "./Home.css";
 import founderUrl from "../../assets/founder.png";
@@ -47,9 +51,27 @@ export default function Home({ lang }) {
     []
   );
 
+  const sectors = useMemo(
+    () => [
+      { label: "Technology & Fintech", icon: <Globe2 size={18} /> },
+      { label: "Real Estate & Hospitality", icon: <Landmark size={18} /> },
+      { label: "Energy & Infrastructure", icon: <Sparkles size={18} /> },
+      { label: "Luxury & Retail", icon: <Sparkles size={18} /> },
+      { label: "Family Offices", icon: <Sparkles size={18} /> },
+    ],
+    []
+  );
+
   // Reveal + stagger (sin librerías)
   useEffect(() => {
     const els = Array.from(document.querySelectorAll(".reveal"));
+
+    // fallback: setea delay por data-stagger de forma confiable
+    els.forEach((el) => {
+      const n = Number(el.getAttribute("data-stagger") || "0");
+      if (n > 0) el.style.transitionDelay = `${(n - 1) * 90}ms`;
+    });
+
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -59,6 +81,7 @@ export default function Home({ lang }) {
       },
       { threshold: 0.16, rootMargin: "0px 0px -10% 0px" }
     );
+
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
@@ -76,7 +99,9 @@ export default function Home({ lang }) {
             {personas.map((p) => (
               <button
                 key={p.id}
-                className={activePersona === p.id ? "persona-tab active" : "persona-tab"}
+                className={
+                  activePersona === p.id ? "persona-tab active" : "persona-tab"
+                }
                 onClick={() => setActivePersona(p.id)}
               >
                 {p.label}
@@ -84,12 +109,20 @@ export default function Home({ lang }) {
             ))}
           </div>
 
-          <h1 className="reveal" data-stagger="2">{t.heroTitle}</h1>
-          <p className="hero-subtitle reveal" data-stagger="3">{t.heroSubtitle}</p>
+          <h1 className="reveal" data-stagger="2">
+            {t.heroTitle}
+          </h1>
+          <p className="hero-subtitle reveal" data-stagger="3">
+            {t.heroSubtitle}
+          </p>
 
           <div className="hero-ctas reveal" data-stagger="4">
-            <a href="#contact" className="primary-cta">{t.ctaPrimary}</a>
-            <a href="#cases" className="secondary-cta">{t.ctaSecondary}</a>
+            <a href="#contact" className="primary-cta">
+              {t.ctaPrimary}
+            </a>
+            <a href="#cases" className="secondary-cta">
+              {t.ctaSecondary}
+            </a>
           </div>
 
           <div className="trust-bar reveal" data-stagger="5">
@@ -105,12 +138,22 @@ export default function Home({ lang }) {
         <div className="section-inner">
           <div className="section-rail" aria-hidden="true" />
 
-          <div className="section-header reveal" data-stagger="1">
-            <h2>Practice Areas</h2>
-            <p>
-              High-stakes litigation, cross-border transactions and strategic advisory
-              for complex business decisions.
-            </p>
+          <div className="section-headcard glass reveal" data-stagger="1">
+            <div className="section-meta">
+              <span className="section-kicker">Core capabilities</span>
+              <span className="section-divider" aria-hidden="true" />
+              <span className="section-tag">
+                <Gavel size={16} /> Strategic counsel
+              </span>
+            </div>
+
+            <div className="section-header">
+              <h2>Practice Areas</h2>
+              <p>
+                High-stakes litigation, cross-border transactions and strategic
+                advisory for complex business decisions.
+              </p>
+            </div>
           </div>
 
           <div className="cards-grid">
@@ -123,6 +166,7 @@ export default function Home({ lang }) {
                 <div className="card-top">
                   <div className="practice-icon" aria-hidden="true">
                     {item.icon}
+                    <span className="icon-glow" aria-hidden="true" />
                   </div>
 
                   <button className="ghost-link" type="button">
@@ -134,6 +178,7 @@ export default function Home({ lang }) {
                 <p>{item.text}</p>
 
                 <div className="card-shine" aria-hidden="true" />
+                <div className="card-border" aria-hidden="true" />
               </article>
             ))}
           </div>
@@ -145,25 +190,32 @@ export default function Home({ lang }) {
         <div className="section-inner">
           <div className="section-rail" aria-hidden="true" />
 
-          <div className="section-header reveal" data-stagger="1">
-            <h2>Sectors</h2>
-            <p>
-              We advise clients across key industries where regulatory scrutiny
-              and cross-border dynamics demand precision.
-            </p>
+          <div className="section-headcard glass reveal" data-stagger="1">
+            <div className="section-meta">
+              <span className="section-kicker">Industries served</span>
+              <span className="section-divider" aria-hidden="true" />
+              <span className="section-tag">
+                <Sparkles size={16} /> Precision + discretion
+              </span>
+            </div>
+
+            <div className="section-header">
+              <h2>Sectors</h2>
+              <p>
+                We advise clients across key industries where regulatory
+                scrutiny and cross-border dynamics demand precision.
+              </p>
+            </div>
           </div>
 
-          <div className="chips-row reveal" data-stagger="2">
-            {[
-              "Technology & Fintech",
-              "Real Estate & Hospitality",
-              "Energy & Infrastructure",
-              "Luxury & Retail",
-              "Family Offices",
-            ].map((s, i) => (
-              <span key={s} className="sector-chip" style={{ animationDelay: `${i * 60}ms` }}>
-                {s}
-              </span>
+          {/* More detail: mini cards (mantiene tu contenido) */}
+          <div className="sector-grid reveal" data-stagger="2">
+            {sectors.map((s, i) => (
+              <div className="sector-card glass" key={s.label} style={{ transitionDelay: `${i * 60}ms` }}>
+                <div className="sector-icon">{s.icon}</div>
+                <div className="sector-text">{s.label}</div>
+                <div className="mini-shine" aria-hidden="true" />
+              </div>
             ))}
           </div>
         </div>
@@ -174,41 +226,62 @@ export default function Home({ lang }) {
         <div className="section-inner">
           <div className="section-rail" aria-hidden="true" />
 
-          <div className="section-header reveal" data-stagger="1">
-            <h2>Representative Cases</h2>
-            <p>Selected matters illustrating the depth of our cross-border and high-stakes work.</p>
+          <div className="section-headcard glass reveal" data-stagger="1">
+            <div className="section-meta">
+              <span className="section-kicker">Selected matters</span>
+              <span className="section-divider" aria-hidden="true" />
+              <span className="section-tag">
+                <Sparkles size={16} /> High-stakes work
+              </span>
+            </div>
+
+            <div className="section-header">
+              <h2>Representative Cases</h2>
+              <p>
+                Selected matters illustrating the depth of our cross-border and
+                high-stakes work.
+              </p>
+            </div>
           </div>
 
-          <div className="timeline">
-            {[
-              {
-                year: "2024",
-                title: "Cross-border M&A – USD 420M+",
-                detail:
-                  "Advised a industrial group in the acquisition of a US-listed company with operations in 4 jurisdictions.",
-              },
-              {
-                year: "2023",
-                title: "Multi-jurisdictional litigation",
-                detail:
-                  "Representation of a multinational in parallel proceedings involving complex regulatory allegations.",
-              },
-              {
-                year: "2022",
-                title: "Wealth & Governance Structure",
-                detail:
-                  "Designed asset holding and governance structure for a multi-generational family office with assets in US, LatAm and Europe.",
-              },
-            ].map((c, i) => (
-              <div key={c.title} className="timeline-item reveal" data-stagger={i + 2}>
-                <div className="timeline-dot" />
-                <div className="timeline-content">
-                  <span className="timeline-year">{c.year}</span>
-                  <h3>{c.title}</h3>
-                  <p>{c.detail}</p>
+          <div className="timeline-panel glass reveal" data-stagger="2">
+            <div className="timeline">
+              {[
+                {
+                  year: "2024",
+                  title: "Cross-border M&A – USD 420M+",
+                  detail:
+                    "Advised a industrial group in the acquisition of a US-listed company with operations in 4 jurisdictions.",
+                },
+                {
+                  year: "2023",
+                  title: "Multi-jurisdictional litigation",
+                  detail:
+                    "Representation of a multinational in parallel proceedings involving complex regulatory allegations.",
+                },
+                {
+                  year: "2022",
+                  title: "Wealth & Governance Structure",
+                  detail:
+                    "Designed asset holding and governance structure for a multi-generational family office with assets in US, LatAm and Europe.",
+                },
+              ].map((c, i) => (
+                <div
+                  key={c.title}
+                  className="timeline-item reveal"
+                  data-stagger={i + 3}
+                >
+                  <div className="timeline-dot" />
+                  <div className="timeline-content">
+                    <span className="timeline-year">{c.year}</span>
+                    <h3>{c.title}</h3>
+                    <p>{c.detail}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            <div className="panel-shine" aria-hidden="true" />
           </div>
         </div>
       </section>
@@ -218,9 +291,22 @@ export default function Home({ lang }) {
         <div className="section-inner">
           <div className="section-rail" aria-hidden="true" />
 
-          <div className="section-header reveal" data-stagger="1">
-            <h2>Partners</h2>
-            <p>Senior-led teams with cross-border depth and executive-level discretion.</p>
+          <div className="section-headcard glass reveal" data-stagger="1">
+            <div className="section-meta">
+              <span className="section-kicker">Partner-led</span>
+              <span className="section-divider" aria-hidden="true" />
+              <span className="section-tag">
+                <Sparkles size={16} /> Executive-level attention
+              </span>
+            </div>
+
+            <div className="section-header">
+              <h2>Partners</h2>
+              <p>
+                Senior-led teams with cross-border depth and executive-level
+                discretion.
+              </p>
+            </div>
           </div>
 
           <div className="partners-grid">
@@ -243,16 +329,22 @@ export default function Home({ lang }) {
                 <p className="founder-role">Corporate & Litigation</p>
 
                 <p className="founder-desc">
-                  Partner-led counsel for complex disputes, cross-border strategy,
-                  and sophisticated corporate matters. Trusted by executives and
-                  high-net-worth principals.
+                  Partner-led counsel for complex disputes, cross-border
+                  strategy, and sophisticated corporate matters. Trusted by
+                  executives and high-net-worth principals.
                 </p>
 
                 <div className="founder-actions">
-                  <a className="primary-cta" href="#contact">Request a consultation</a>
-                  <a className="secondary-cta" href="#practices">Explore practice areas</a>
+                  <a className="primary-cta" href="#contact">
+                    Request a consultation
+                  </a>
+                  <a className="secondary-cta" href="#practices">
+                    Explore practice areas
+                  </a>
                 </div>
               </div>
+
+              <div className="card-border" aria-hidden="true" />
             </article>
 
             {/* Secondary partner */}
@@ -261,6 +353,7 @@ export default function Home({ lang }) {
               <h3>M</h3>
               <p className="partner-role">Partner – Corporate</p>
               <p>Corporate</p>
+              <div className="mini-shine" aria-hidden="true" />
             </article>
           </div>
         </div>
@@ -271,36 +364,71 @@ export default function Home({ lang }) {
         <div className="section-inner">
           <div className="section-rail" aria-hidden="true" />
 
-          <div className="section-header reveal" data-stagger="1">
-            <h2>Contact & VIP Intake</h2>
-            <p>Share a brief summary of your matter. Our team will respond with proposed next steps.</p>
+          <div className="section-headcard glass reveal" data-stagger="1">
+            <div className="section-meta">
+              <span className="section-kicker">VIP intake</span>
+              <span className="section-divider" aria-hidden="true" />
+              <span className="section-tag">
+                <Sparkles size={16} /> Confidential submission
+              </span>
+            </div>
+
+            <div className="section-header">
+              <h2>Contact & VIP Intake</h2>
+              <p>
+                Share a brief summary of your matter. Our team will respond with
+                proposed next steps.
+              </p>
+            </div>
           </div>
 
-          <form className="contact-form glass reveal" data-stagger="2">
-            <div className="form-row">
-              <input type="text" placeholder="Full name" required />
-              <input type="text" placeholder="Company / Family Office" />
-            </div>
+          <div className="contact-grid">
+            <form className="contact-form glass reveal" data-stagger="2">
+              <div className="form-row">
+                <input type="text" placeholder="Full name" required />
+                <input type="text" placeholder="Company / Family Office" />
+              </div>
 
-            <div className="form-row">
-              <select>
-                <option>Corporate</option>
-                <option>Family Office</option>
-                <option>Private Client</option>
-              </select>
-              <select>
-                <option>Jurisdiction: US</option>
-                <option>Jurisdiction: Spain</option>
-                <option>US & Spain</option>
-                <option>Other</option>
-              </select>
-            </div>
+              <div className="form-row">
+                <select>
+                  <option>Corporate</option>
+                  <option>Family Office</option>
+                  <option>Private Client</option>
+                </select>
+                <select>
+                  <option>Jurisdiction: US</option>
+                  <option>Jurisdiction: Spain</option>
+                  <option>US & Spain</option>
+                  <option>Other</option>
+                </select>
+              </div>
 
-            <textarea rows={5} placeholder="Briefly describe your matter, including timelines and jurisdictions involved." />
-            <button type="submit" className="primary-cta full-width">
-              Submit Matter Summary
-            </button>
-          </form>
+              <textarea
+                rows={5}
+                placeholder="Briefly describe your matter, including timelines and jurisdictions involved."
+              />
+              <button type="submit" className="primary-cta full-width">
+                Submit Matter Summary
+              </button>
+            </form>
+
+            {/* Aside card (más detalle visual sin cambiar contenido) */}
+            <aside className="contact-aside glass reveal" data-stagger="3">
+              <div className="aside-kicker">Response standard</div>
+              <div className="aside-title">Executive intake</div>
+              <p className="aside-text">
+                We typically respond with proposed next steps, timelines, and
+                required jurisdictions. Confidentiality is maintained throughout
+                the process.
+              </p>
+              <div className="aside-row">
+                <span className="aside-pill">Cross-border</span>
+                <span className="aside-pill">Discreet</span>
+                <span className="aside-pill">Partner-led</span>
+              </div>
+              <div className="mini-shine" aria-hidden="true" />
+            </aside>
+          </div>
         </div>
       </section>
     </div>
