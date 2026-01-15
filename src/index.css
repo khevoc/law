@@ -42,15 +42,7 @@ section {
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #1c2b1f; /* Verde profundo */
-  background-image: 
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.08) 0px,
-      rgba(255, 255, 255, 0.08) 1px,
-      transparent 2px,
-      transparent 6px
-    );
+  background-color: #1f1c2b;
   animation: auroraLines 6s ease-in-out infinite alternate;
   font-family: 'Montserrat', sans-serif;
   color: white;

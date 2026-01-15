@@ -1,12 +1,25 @@
 // src/components/Layout.jsx
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ChevronUpIcon, Mail } from "lucide-react";
 import "./Layout.css";
 
-const Layout = ({ children, lang, setLang }) => {
+const Layout = ({ children }) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    // Cierra overlay si cambia la ruta/hash
+    setMenuOpen(false);
+  }, [location?.hash, location?.pathname]);
+
+  React.useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <div className="site-shell">
@@ -19,6 +32,8 @@ const Layout = ({ children, lang, setLang }) => {
         <button
           className="mobile-menu-btn"
           onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+          aria-expanded={menuOpen ? "true" : "false"}
         >
           <span></span><span></span><span></span>
         </button>
@@ -31,7 +46,6 @@ const Layout = ({ children, lang, setLang }) => {
         </nav>
 
         <div className="header-actions">
-          {/* Si más adelante vuelves a usar idiomas, aquí va el switch */}
           <a href="#contact" className="primary-cta">
             Client Portal
           </a>
@@ -40,33 +54,48 @@ const Layout = ({ children, lang, setLang }) => {
 
       {/* MOBILE MENU */}
       {menuOpen && (
-        <div className="mobile-menu-overlay">
-          <button
-            className="close-mobile-menu"
-            onClick={() => setMenuOpen(false)}
-          >
-            ✕
-          </button>
+        <div
+          className="mobile-menu-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          onClick={(e) => {
+            // click fuera del panel -> cierra
+            if (e.target.classList.contains("mobile-menu-overlay")) {
+              setMenuOpen(false);
+            }
+          }}
+        >
+          <div className="mobile-menu-panel">
+            <button
+              className="close-mobile-menu"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              ✕
+            </button>
 
-          <nav className="mobile-nav">
-            <a href="#top" onClick={() => setMenuOpen(false)}>Home</a>
-            <a href="#team" onClick={() => setMenuOpen(false)}>Firm</a>
-            <a href="#practices" onClick={() => setMenuOpen(false)}>Practice Areas</a>
-            <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-          </nav>
+            <nav className="mobile-nav">
+              <a href="#top" onClick={() => setMenuOpen(false)}>Home</a>
+              <a href="#team" onClick={() => setMenuOpen(false)}>Firm</a>
+              <a href="#practices" onClick={() => setMenuOpen(false)}>Practice Areas</a>
+              <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+            </nav>
+
+            <a href="#contact" className="mobile-primary-cta" onClick={() => setMenuOpen(false)}>
+              Client Portal
+            </a>
+          </div>
         </div>
       )}
 
-      {/* MAIN CONTENT */}
       <main>{children}</main>
 
       {/* FLOATING CTA TO CONTACT */}
       <button
         className="floating-cta"
-        onClick={() => {
-          const contact = document.getElementById("contact");
-          if (contact) contact.scrollIntoView({ behavior: "smooth" });
-        }}
+        onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Contact"
       >
         <span className="floating-cta-icon">
           <Mail size={20} />
@@ -76,10 +105,8 @@ const Layout = ({ children, lang, setLang }) => {
       {/* FLOATING CTA TO TOP */}
       <button
         className="floating-cta to-top"
-        onClick={() => {
-          const top = document.getElementById("top");
-          if (top) top.scrollIntoView({ behavior: "smooth" });
-        }}
+        onClick={() => document.getElementById("top")?.scrollIntoView({ behavior: "smooth" })}
+        aria-label="Back to top"
       >
         <span className="floating-cta-icon">
           <ChevronUpIcon size={20} />
@@ -89,13 +116,8 @@ const Layout = ({ children, lang, setLang }) => {
       {/* FOOTER */}
       <footer className="site-footer">
         <div className="footer-main">
-          {/* Left: logo + marca */}
           <div className="footer-left">
-            <img
-              src="/logo.png" // ajusta ruta si es necesario
-              alt="Arca Law Logo"
-              className="footer-logo"
-            />
+            <img src="/logo.png" alt="Arca Law Logo" className="footer-logo" />
             <div className="footer-brand">
               <span className="footer-brand-name">Arca Law</span>
               <span className="footer-brand-copy">
@@ -104,7 +126,6 @@ const Layout = ({ children, lang, setLang }) => {
             </div>
           </div>
 
-          {/* Center: navegación secundaria */}
           <div className="footer-center">
             <a href="#top">Home</a>
             <a href="#team">Firm</a>
@@ -112,7 +133,6 @@ const Layout = ({ children, lang, setLang }) => {
             <a href="#contact">Contact</a>
           </div>
 
-          {/* Right: contacto */}
           <div className="footer-right">
             <p>Phone: +1 (305) 523-9040</p>
             <p>Email: victor@arcalawfirm.com</p>
